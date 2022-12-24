@@ -17,18 +17,21 @@ class MainViewController: UIViewController {
     var topUpButton: UIButton!
     var addTransactionButton: UIButton!
     var transactionsTableView: UITableView!
-    
+    var popUpView: PopUpViewController!
     
     override func loadView() {
         super.loadView()
         view.backgroundColor = UIColor.init(rgb: 0xd8e2dc)
-        
         setViews()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        title = "Expense Tracker"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     private func setViews() {
@@ -43,11 +46,12 @@ class MainViewController: UIViewController {
         bitcoinExchangeLabel = UILabel()
         view.addSubview(bitcoinExchangeLabel)
         bitcoinExchangeLabel.translatesAutoresizingMaskIntoConstraints = false
+        bitcoinExchangeLabel.textColor = UIColor.init(rgb: 0x000000)
         bitcoinExchangeLabel.textAlignment = .right
         bitcoinExchangeLabel.numberOfLines = 2
         bitcoinExchangeLabel.text = "1 BTC = 16963453.88 USD\n updated: 23.12 at 12:54"
         
-        bitcoinExchangeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10.adjustSize()).isActive = true
+        bitcoinExchangeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.adjustSize()).isActive = true
         bitcoinExchangeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.adjustSize()).isActive = true
         bitcoinExchangeLabel.heightAnchor.constraint(equalToConstant: 60.adjustSize()).isActive = true
         bitcoinExchangeLabel.widthAnchor.constraint(equalToConstant: 250.adjustSize()).isActive = true
@@ -63,8 +67,9 @@ class MainViewController: UIViewController {
         walletLabel.text = "My wallet:\n$2324241241"
         walletLabel.adjustsFontSizeToFitWidth = true
         walletLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        walletLabel.textColor = UIColor.init(rgb: 0x000000)
         
-        walletLabel.topAnchor.constraint(equalTo: bitcoinExchangeLabel.bottomAnchor, constant: 30.adjustSize()).isActive = true
+        walletLabel.topAnchor.constraint(equalTo: bitcoinExchangeLabel.bottomAnchor, constant: 25.adjustSize()).isActive = true
         walletLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.adjustSize()).isActive = true
         walletLabel.heightAnchor.constraint(equalToConstant: 80.adjustSize()).isActive = true
         walletLabel.widthAnchor.constraint(equalToConstant: 200.adjustSize()).isActive = true
@@ -78,6 +83,8 @@ class MainViewController: UIViewController {
         topUpButton.layer.cornerRadius = 10.adjustSize()
         topUpButton.clipsToBounds = true
         topUpButton.backgroundColor = UIColor.init(rgb: 0x4a6c6f)
+        topUpButton.addTarget(self, action: #selector(onTopUpButton), for: .touchUpInside)
+        
         topUpButton.topAnchor.constraint(equalTo: walletLabel.topAnchor).isActive = true
         topUpButton.trailingAnchor.constraint(equalTo: bitcoinExchangeLabel.trailingAnchor).isActive = true
         topUpButton.heightAnchor.constraint(equalTo: walletLabel.heightAnchor).isActive = true
@@ -92,10 +99,11 @@ class MainViewController: UIViewController {
         addTransactionButton.layer.cornerRadius = 10.adjustSize()
         addTransactionButton.clipsToBounds = true
         addTransactionButton.backgroundColor = UIColor.init(rgb: 0x4a6c6f)
+        
         addTransactionButton.topAnchor.constraint(equalTo: walletLabel.bottomAnchor, constant: 10.adjustSize()).isActive = true
         addTransactionButton.leadingAnchor.constraint(equalTo: walletLabel.leadingAnchor).isActive = true
         addTransactionButton.heightAnchor.constraint(equalToConstant: 40.adjustSize()).isActive = true
-        addTransactionButton.widthAnchor.constraint(equalToConstant: 150.adjustSize()).isActive = true
+        addTransactionButton.widthAnchor.constraint(equalToConstant: 190.adjustSize()).isActive = true
     }
     
     private func setTransactionsTableView() {
@@ -111,7 +119,14 @@ class MainViewController: UIViewController {
         transactionsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10.adjustSize()).isActive = true
     }
     
-
+//MARK: - Actions
+    
+    @objc func onTopUpButton() {
+        popUpView = PopUpViewController()
+        self.addChild(popUpView)
+        popUpView.view.frame = self.view.frame
+        self.view.addSubview(popUpView.view)
+    }
     
 
 
