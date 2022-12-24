@@ -19,6 +19,8 @@ class AppCoordinator: CoordinatorProtocol {
         let vc = MainViewController()
         vc.coordinator = self
         vc.viewModel = MainViewModel()
+        self.navigationController.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.init(rgb: 0x222a68), NSAttributedString.Key.font: UIFont.systemFont(ofSize: 27.adjustSize(), weight: .medium)]
+        self.navigationController.navigationBar.barTintColor = UIColor.init(rgb: 0xd8e2dc)
         navigationController.pushViewController(vc, animated: true)
     }
 
