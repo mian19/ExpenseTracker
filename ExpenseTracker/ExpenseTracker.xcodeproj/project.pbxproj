@@ -15,12 +15,21 @@
 		67A097D7295766A4006936BB /* UIColor+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A097D6295766A4006936BB /* UIColor+hex.swift */; };
 		67A097D929576B4A006936BB /* Double+adjustSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A097D829576B4A006936BB /* Double+adjustSize.swift */; };
 		67A097DF295779FE006936BB /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A097DE295779FE006936BB /* PopUpViewController.swift */; };
+		67A097E12957B124006936BB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A097E02957B124006936BB /* NetworkManager.swift */; };
+		67A097E32957B15F006936BB /* BitcoinExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A097E22957B15F006936BB /* BitcoinExchangeRate.swift */; };
 		67B6CADD29574DF20024A873 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6CADC29574DF20024A873 /* AppDelegate.swift */; };
 		67B6CADF29574DF20024A873 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6CADE29574DF20024A873 /* SceneDelegate.swift */; };
 		67B6CAE129574DF20024A873 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B6CAE029574DF20024A873 /* MainViewController.swift */; };
 		67B6CAE729574DF20024A873 /* ExpenseTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 67B6CAE529574DF20024A873 /* ExpenseTracker.xcdatamodeld */; };
 		67B6CAE929574DF40024A873 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67B6CAE829574DF40024A873 /* Assets.xcassets */; };
 		67B6CAEC29574DF40024A873 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67B6CAEA29574DF40024A873 /* LaunchScreen.storyboard */; };
+		67F5A6B829585BB7003F5F8C /* BTC+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F5A6B229585BB7003F5F8C /* BTC+CoreDataClass.swift */; };
+		67F5A6B929585BB7003F5F8C /* BTC+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F5A6B329585BB7003F5F8C /* BTC+CoreDataProperties.swift */; };
+		67F5A6BA29585BB7003F5F8C /* Transaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F5A6B429585BB7003F5F8C /* Transaction+CoreDataClass.swift */; };
+		67F5A6BB29585BB7003F5F8C /* Transaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F5A6B529585BB7003F5F8C /* Transaction+CoreDataProperties.swift */; };
+		67F5A6BC29585BB7003F5F8C /* Wallet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F5A6B629585BB7003F5F8C /* Wallet+CoreDataClass.swift */; };
+		67F5A6BD29585BB7003F5F8C /* Wallet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F5A6B729585BB7003F5F8C /* Wallet+CoreDataProperties.swift */; };
+		67F5A6BF295860E5003F5F8C /* Date+customMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F5A6BE295860E5003F5F8C /* Date+customMethods.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +41,8 @@
 		67A097D6295766A4006936BB /* UIColor+hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+hex.swift"; sourceTree = "<group>"; };
 		67A097D829576B4A006936BB /* Double+adjustSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+adjustSize.swift"; sourceTree = "<group>"; };
 		67A097DE295779FE006936BB /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
+		67A097E02957B124006936BB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		67A097E22957B15F006936BB /* BitcoinExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinExchangeRate.swift; sourceTree = "<group>"; };
 		67B6CAD929574DF20024A873 /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67B6CADC29574DF20024A873 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67B6CADE29574DF20024A873 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +51,13 @@
 		67B6CAE829574DF40024A873 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67B6CAEB29574DF40024A873 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		67B6CAED29574DF40024A873 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67F5A6B229585BB7003F5F8C /* BTC+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTC+CoreDataClass.swift"; sourceTree = "<group>"; };
+		67F5A6B329585BB7003F5F8C /* BTC+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BTC+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		67F5A6B429585BB7003F5F8C /* Transaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transaction+CoreDataClass.swift"; sourceTree = "<group>"; };
+		67F5A6B529585BB7003F5F8C /* Transaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		67F5A6B629585BB7003F5F8C /* Wallet+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataClass.swift"; sourceTree = "<group>"; };
+		67F5A6B729585BB7003F5F8C /* Wallet+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		67F5A6BE295860E5003F5F8C /* Date+customMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+customMethods.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				67A097D429576396006936BB /* CoreDataManager.swift */,
+				67A097E02957B124006936BB /* NetworkManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -106,6 +125,13 @@
 		67A097C629575800006936BB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				67F5A6B229585BB7003F5F8C /* BTC+CoreDataClass.swift */,
+				67F5A6B329585BB7003F5F8C /* BTC+CoreDataProperties.swift */,
+				67F5A6B429585BB7003F5F8C /* Transaction+CoreDataClass.swift */,
+				67F5A6B529585BB7003F5F8C /* Transaction+CoreDataProperties.swift */,
+				67F5A6B629585BB7003F5F8C /* Wallet+CoreDataClass.swift */,
+				67F5A6B729585BB7003F5F8C /* Wallet+CoreDataProperties.swift */,
+				67A097E22957B15F006936BB /* BitcoinExchangeRate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -115,6 +141,7 @@
 			children = (
 				67A097D6295766A4006936BB /* UIColor+hex.swift */,
 				67A097D829576B4A006936BB /* Double+adjustSize.swift */,
+				67F5A6BE295860E5003F5F8C /* Date+customMethods.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -260,15 +287,24 @@
 				67A097CE29575988006936BB /* AppCoordinator.swift in Sources */,
 				67B6CAE129574DF20024A873 /* MainViewController.swift in Sources */,
 				67B6CADD29574DF20024A873 /* AppDelegate.swift in Sources */,
+				67A097E12957B124006936BB /* NetworkManager.swift in Sources */,
+				67F5A6BF295860E5003F5F8C /* Date+customMethods.swift in Sources */,
 				67A097D129575A2D006936BB /* Dynamic.swift in Sources */,
+				67F5A6BC29585BB7003F5F8C /* Wallet+CoreDataClass.swift in Sources */,
+				67A097E32957B15F006936BB /* BitcoinExchangeRate.swift in Sources */,
+				67F5A6BA29585BB7003F5F8C /* Transaction+CoreDataClass.swift in Sources */,
 				67A097D929576B4A006936BB /* Double+adjustSize.swift in Sources */,
 				67A097CC2957597F006936BB /* CoordinatorProtocol.swift in Sources */,
 				67B6CADF29574DF20024A873 /* SceneDelegate.swift in Sources */,
 				67A097D529576396006936BB /* CoreDataManager.swift in Sources */,
 				67A097D7295766A4006936BB /* UIColor+hex.swift in Sources */,
+				67F5A6B929585BB7003F5F8C /* BTC+CoreDataProperties.swift in Sources */,
+				67F5A6BD29585BB7003F5F8C /* Wallet+CoreDataProperties.swift in Sources */,
 				67A097DF295779FE006936BB /* PopUpViewController.swift in Sources */,
+				67F5A6BB29585BB7003F5F8C /* Transaction+CoreDataProperties.swift in Sources */,
 				67B6CAE729574DF20024A873 /* ExpenseTracker.xcdatamodeld in Sources */,
 				67A097D329575A78006936BB /* MainViewModel.swift in Sources */,
+				67F5A6B829585BB7003F5F8C /* BTC+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

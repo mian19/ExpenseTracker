@@ -31,9 +31,33 @@ class CoreDataManager {
         return container
     }()
 
+    // MARK: - fetching data
+    func fetchBTC() -> [BTC] {
+        var btcData = [BTC]()
+        do {
+            btcData =
+            try context.fetch(BTC.fetchRequest())
+        } catch {
+            print("couldnt fetch")
+        }
+        return btcData
+    }
+    
+    func fetchCashInWallet() -> [Wallet] {
+        var walletData = [Wallet]()
+        do {
+            walletData =
+            try context.fetch(Wallet.fetchRequest())
+        } catch {
+            print("couldnt fetch")
+        }
+        return walletData
+    }
+    
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    
+    func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
