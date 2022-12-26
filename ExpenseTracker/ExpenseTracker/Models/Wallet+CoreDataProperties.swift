@@ -16,7 +16,7 @@ extension Wallet {
         return NSFetchRequest<Wallet>(entityName: "Wallet")
     }
 
-    @NSManaged public var cash: Double
+    @NSManaged public var cash: Int64
 
 }
 

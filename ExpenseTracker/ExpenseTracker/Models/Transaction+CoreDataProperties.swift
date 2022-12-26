@@ -2,7 +2,7 @@
 //  Transaction+CoreDataProperties.swift
 //  ExpenseTracker
 //
-//  Created by Kyzu on 25.12.22.
+//  Created by Kyzu on 26.12.22.
 //
 //
 
@@ -16,10 +16,10 @@ extension Transaction {
         return NSFetchRequest<Transaction>(entityName: "Transaction")
     }
 
-    @NSManaged public var amount: Double
-    @NSManaged public var category: String?
-    @NSManaged public var date: Date?
-    @NSManaged public var direction: String?
+    @NSManaged public var amount: Int64
+    @NSManaged public var category: String
+    @NSManaged public var date: Date
+    @NSManaged public var transactionDay: TransactionDay
 
 }
 

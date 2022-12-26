@@ -2,7 +2,7 @@
 //  Transaction+CoreDataClass.swift
 //  ExpenseTracker
 //
-//  Created by Kyzu on 25.12.22.
+//  Created by Kyzu on 26.12.22.
 //
 //
 

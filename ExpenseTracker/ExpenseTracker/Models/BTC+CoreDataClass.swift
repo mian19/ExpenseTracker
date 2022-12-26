@@ -13,4 +13,6 @@ import CoreData
 public class BTC: NSManagedObject {
     convenience init() {
         self.init(entity: CoreDataManager.shared.entityForName(entityName: "BTC"), insertInto: CoreDataManager.shared.context)
-    }}
+    }
+    
+}
