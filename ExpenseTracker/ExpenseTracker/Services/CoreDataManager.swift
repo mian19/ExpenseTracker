@@ -20,7 +20,7 @@ class CoreDataManager {
     }
     
     // MARK: - Core Data stack
-
+    
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ExpenseTracker")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -30,13 +30,12 @@ class CoreDataManager {
         })
         return container
     }()
-
+    
     // MARK: - fetching data
     func fetchBTC() -> [BTC] {
         var btcData = [BTC]()
         do {
-            btcData =
-            try context.fetch(BTC.fetchRequest())
+            btcData = try context.fetch(BTC.fetchRequest())
         } catch {
             print("couldnt fetch")
         }
@@ -46,17 +45,39 @@ class CoreDataManager {
     func fetchCashInWallet() -> [Wallet] {
         var walletData = [Wallet]()
         do {
-            walletData =
-            try context.fetch(Wallet.fetchRequest())
+            walletData = try context.fetch(Wallet.fetchRequest())
         } catch {
             print("couldnt fetch")
         }
         return walletData
     }
     
-    // MARK: - Core Data Saving support
-
+    func fetchTransactions() -> [Transaction] {
+        var transData = [Transaction]()
+        do {
+            transData = try context.fetch(Transaction.fetchRequest())
+        } catch {
+            print("couldnt fetch")
+        }
+        return transData
+    }
     
+    func fetchTransactionDay(day: String) -> [TransactionDay] {
+        var transData = [TransactionDay]()
+        do {
+            let request = TransactionDay.fetchRequest()
+            let filter = day
+            let commitPredicate = NSPredicate(format: "day == %@", filter)
+            request.predicate = commitPredicate
+            transData = try context.fetch(request)
+            
+        } catch {
+            print("couldnt fetch")
+        }
+        return transData
+    }
+ 
+    // MARK: - Core Data Saving support
     func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -68,6 +89,5 @@ class CoreDataManager {
             }
         }
     }
-
-
+    
 }
