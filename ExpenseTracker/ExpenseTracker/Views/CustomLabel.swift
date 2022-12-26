@@ -13,12 +13,12 @@ class CustomLabel: UILabel {
         super.init(frame: frame)
     }
     
-    convenience init( colorHex: Int, size: CGFloat, fontStyle: String = "Circe-Regular") {
+    convenience init(size: CGFloat ) {
         self.init()
         self.translatesAutoresizingMaskIntoConstraints = false
         self.adjustsFontSizeToFitWidth = true
-        self.font = UIFont(name: fontStyle, size: size)
-        self.textColor = UIColor.init(rgb: colorHex)
+        self.font = UIFont.systemFont(ofSize: size, weight: .medium)
+        self.textAlignment = .center
     }
     
     required init?(coder: NSCoder) {

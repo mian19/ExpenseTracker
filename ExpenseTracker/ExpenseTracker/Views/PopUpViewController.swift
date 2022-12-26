@@ -101,9 +101,8 @@ class PopUpViewController: UIViewController {
         textField.trailingAnchor.constraint(equalTo: label.trailingAnchor).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 50.adjustSize()).isActive = true
         textField.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20).isActive = true
-        
     }
-
+    
     private func setTopUpWalletButton() {
         topUpWalletButton = UIButton()
         scrollView.addSubview(topUpWalletButton)
@@ -112,7 +111,6 @@ class PopUpViewController: UIViewController {
         topUpWalletButton.layer.cornerRadius = 10.adjustSize()
         topUpWalletButton.clipsToBounds = true
         topUpWalletButton.backgroundColor = UIColor.init(rgb: 0x4a6c6f)
-        topUpWalletButton.addTarget(self, action: #selector(onTopUpWalletButton), for: .touchUpInside)
         
         topUpWalletButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20.adjustSize()).isActive = true
         topUpWalletButton.leadingAnchor.constraint(equalTo: textField.leadingAnchor).isActive = true
@@ -135,14 +133,10 @@ class PopUpViewController: UIViewController {
         cancelButton.heightAnchor.constraint(equalToConstant: 40.adjustSize()).isActive = true
         cancelButton.widthAnchor.constraint(equalToConstant: 100.adjustSize()).isActive = true
     }
-    
+
     //MARK: - Actions
     @objc private func focus() {
         scrollView.endEditing(true)
-    }
-    
-    @objc private func onTopUpWalletButton() {
-        moveOut()
     }
     
     @objc private func onCancelButton() {

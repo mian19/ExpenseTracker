@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-
+    
     var viewModel: MainViewModel!
     weak var coordinator: AppCoordinator?
     
@@ -27,11 +27,16 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindViewModel()
         title = "Expense Tracker"
+        viewModel.fetchBTC()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.getMyWallet()
+        viewModel.getDataFromDB()
+        transactionsTableView.setContentOffset(.zero, animated: true)
     }
     
     private func setViews() {
@@ -49,13 +54,12 @@ class MainViewController: UIViewController {
         bitcoinExchangeLabel.textColor = UIColor.init(rgb: 0x000000)
         bitcoinExchangeLabel.textAlignment = .right
         bitcoinExchangeLabel.numberOfLines = 2
-        bitcoinExchangeLabel.text = "1 BTC = 16963453.88 USD\n updated: 23.12 at 12:54"
+        bitcoinExchangeLabel.text = viewModel.btcCourse.value
         
         bitcoinExchangeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20.adjustSize()).isActive = true
         bitcoinExchangeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.adjustSize()).isActive = true
         bitcoinExchangeLabel.heightAnchor.constraint(equalToConstant: 60.adjustSize()).isActive = true
         bitcoinExchangeLabel.widthAnchor.constraint(equalToConstant: 250.adjustSize()).isActive = true
-        
     }
     
     private func setWalletLabel() {
@@ -64,7 +68,7 @@ class MainViewController: UIViewController {
         walletLabel.translatesAutoresizingMaskIntoConstraints = false
         walletLabel.textAlignment = .left
         walletLabel.numberOfLines = 2
-        walletLabel.text = "My wallet:\n$2324241241"
+        walletLabel.text = "My wallet:\n$\(viewModel.myWallet.value)"
         walletLabel.adjustsFontSizeToFitWidth = true
         walletLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         walletLabel.textColor = UIColor.init(rgb: 0x000000)
@@ -99,6 +103,7 @@ class MainViewController: UIViewController {
         addTransactionButton.layer.cornerRadius = 10.adjustSize()
         addTransactionButton.clipsToBounds = true
         addTransactionButton.backgroundColor = UIColor.init(rgb: 0x4a6c6f)
+        addTransactionButton.addTarget(self, action: #selector(onAddTransactionButton), for: .touchUpInside)
         
         addTransactionButton.topAnchor.constraint(equalTo: walletLabel.bottomAnchor, constant: 10.adjustSize()).isActive = true
         addTransactionButton.leadingAnchor.constraint(equalTo: walletLabel.leadingAnchor).isActive = true
@@ -108,28 +113,117 @@ class MainViewController: UIViewController {
     
     private func setTransactionsTableView() {
         transactionsTableView = UITableView()
-        transactionsTableView.backgroundColor = .red
+        transactionsTableView.delegate = self
+        transactionsTableView.dataSource = self
+        transactionsTableView.backgroundColor = .clear
+        transactionsTableView.showsVerticalScrollIndicator = false
+        transactionsTableView.layer.cornerRadius = 15
+        transactionsTableView.clipsToBounds = true
+        transactionsTableView.register(TransactionViewCell.self, forCellReuseIdentifier: TransactionViewCell.reuseID)
+        
         view.addSubview(transactionsTableView)
         transactionsTableView.translatesAutoresizingMaskIntoConstraints = false
         
         transactionsTableView.leadingAnchor.constraint(equalTo: walletLabel.leadingAnchor)
-        .isActive = true
+            .isActive = true
         transactionsTableView.trailingAnchor.constraint(equalTo: topUpButton.trailingAnchor).isActive = true
         transactionsTableView.topAnchor.constraint(equalTo: addTransactionButton.bottomAnchor, constant: 20.adjustSize()).isActive = true
-        transactionsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 10.adjustSize()).isActive = true
+        transactionsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10.adjustSize()).isActive = true
+        
+        let headerView = UILabel()
+        headerView.frame = CGRect(x: 0, y: 0, width: transactionsTableView.frame.width, height: 50)
+        headerView.backgroundColor = .clear
+        headerView.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        headerView.textColor = UIColor.init(rgb: 0x000000)
+        headerView.textAlignment = .center
+        headerView.text = "My transactions"
+        
+        transactionsTableView.tableHeaderView = headerView
+        transactionsTableView.tableFooterView = UIView()
     }
     
-//MARK: - Actions
+    
+    //MARK: - Bindings
+    func bindViewModel() {
+        viewModel.btcCourse.bind({ newBTC in
+            DispatchQueue.main.async {
+                self.bitcoinExchangeLabel.text = newBTC
+            }
+        })
+        
+        viewModel.myWallet.bind({ newBTC in
+            DispatchQueue.main.async {
+                self.walletLabel.text = "My wallet:\n$\(newBTC)"
+                self.viewModel.getDataFromDB()
+                self.transactionsTableView.setContentOffset(.zero, animated: true)
+                self.transactionsTableView.reloadData()
+            }
+        })
+    }
+    
+    //MARK: - Actions
     
     @objc func onTopUpButton() {
         popUpView = PopUpViewController()
         self.addChild(popUpView)
         popUpView.view.frame = self.view.frame
+        popUpView.topUpWalletButton.addTarget(self, action: #selector(onTopUpWalletButton), for: .touchUpInside)
         self.view.addSubview(popUpView.view)
     }
     
-
-
-
+    @objc func onTopUpWalletButton() {
+        if let addedSum = Int(popUpView.textField?.text ?? ""), addedSum != 0 {
+            viewModel.addMoney(sum: addedSum)
+            popUpView.moveOut()
+        } else {
+            popUpView.textField?.text = ""
+            popUpView.showAlert(title: "Error", message: "amount can't be empty, Zero or text value")
+        }
+    }
+    
+    @objc func onAddTransactionButton() {
+        if viewModel.myWallet.value > 0 {
+            coordinator?.toAddTransaction()
+        } else {
+            self.showAlert(title: "Error", message: "Top up your wallet!")
+        }
+    }
+    
 }
 
+//MARK: - work with table
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.fetchResultController.sections?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return viewModel.fetchResultController.sections![section].name
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.fetchResultController.sections?[section].numberOfObjects ?? 0
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionViewCell.reuseID, for: indexPath) as! TransactionViewCell
+        let person = viewModel.fetchResultController.object(at: indexPath) as! Transaction
+        cell.timeLabel.text = person.date.dateForTransCell()
+        cell.sumLabel.text = "$" + String(person.amount)
+        cell.categoryLabel.text = person.category
+        if person.category == "Income" {
+            cell.setColorForLabels(color: UIColor.init(rgb: 0x34b334))
+        } else {
+            cell.setColorForLabels(color: UIColor.init(rgb: 0xfa3901))
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
+}
