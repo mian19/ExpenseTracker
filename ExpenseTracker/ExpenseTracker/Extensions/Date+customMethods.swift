@@ -29,15 +29,22 @@ extension Date {
         return localDate
     }
     
-
+    
     func dateForBTC() -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "dd.MM.yy HH:mm"
-    formatter.timeZone = TimeZone(secondsFromGMT: 0)
-    let stringDate = (formatter.string(from: self))
-    return stringDate
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd.MM.yy HH:mm"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        let stringDate = (formatter.string(from: self))
+        return stringDate
     }
-   
+    
+    func dateForTransCell() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        let stringDate = (formatter.string(from: self))
+        return stringDate
+    }
     
     static func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
