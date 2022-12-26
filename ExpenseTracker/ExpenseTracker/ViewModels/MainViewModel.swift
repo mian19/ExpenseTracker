@@ -17,8 +17,6 @@ class MainViewModel {
     var myWallet = Dynamic(0)
     
     func fetchBTC() {
-        
-        
         if oldBTC.count == 0 || (oldBTC.count != 0 && (Date.differenceInDays(from: oldBTC[0].updatedDate!, to: Date.localDate())) != 0) {
             getFreshBTC()
         } else {
@@ -68,6 +66,7 @@ class MainViewModel {
         trans.amount = Int64(sum)
         trans.category = "Income"
         trans.date = Date.localDate()
+        
         addTransaction(transaction: trans)
         
         myWallet.value += sum
@@ -76,9 +75,21 @@ class MainViewModel {
     }
     
     func addTransaction(transaction: Transaction) {
-        transactions.append(transaction)
-        print(transactions.count)
+        var transDay: TransactionDay!
+        let days = CoreDataManager.shared.fetchTransactionDay(day: Date.dateToString(date: Date.localDate()))
+        if days.count > 0 {
+            
+            transDay = days[0]
+        }
         
+        if days.count == 0 {
+            
+            let newDay = TransactionDay()
+            newDay.day = Date.dateToString(date: Date.localDate())
+            transDay = newDay
+        }
+        
+        transaction.transactionDay = transDay
     }
     
     var fetchResultController: NSFetchedResultsController<NSFetchRequestResult> = {
@@ -88,9 +99,9 @@ class MainViewModel {
         } catch {
             print(error)
         }
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchRequest.sortDescriptors = [ NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.fetchBatchSize = 20
+        let fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataManager.shared.context, sectionNameKeyPath: "transactionDay.day", cacheName: nil)
         return fetchResultController
     }()
     

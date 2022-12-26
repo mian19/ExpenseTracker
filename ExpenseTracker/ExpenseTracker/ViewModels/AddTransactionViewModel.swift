@@ -31,11 +31,22 @@ class AddTransactionViewModel {
     
     func minusWallet(sum: Int) {
         managedWallet[0].cash -= Int64(sum)
-        //CoreDataManager.shared.saveContext()
     }
     
     func addTransaction(transaction: Transaction) {
-        transactions.append(transaction)
+        var transDay: TransactionDay!
+         let days = CoreDataManager.shared.fetchTransactionDay(day: Date.dateToString(date: Date.localDate()))
+            if days.count > 0 {
+                transDay = days[0]
+            }
+        
+        if days.count == 0 {
+            let newDay = TransactionDay()
+            newDay.day = Date.dateToString(date: Date.localDate())
+            transDay = newDay
+        }
+
+        transaction.transactionDay = transDay
         print(transactions.count)
         CoreDataManager.shared.saveContext()
     }
