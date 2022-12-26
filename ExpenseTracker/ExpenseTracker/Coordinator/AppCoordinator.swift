@@ -23,6 +23,13 @@ class AppCoordinator: CoordinatorProtocol {
         self.navigationController.navigationBar.barTintColor = UIColor.init(rgb: 0xd8e2dc)
         navigationController.pushViewController(vc, animated: true)
     }
+    
+    func toAddTransaction() {
+        let vc = AddTransactionViewController()
+        vc.coordinator = self
+        vc.viewModel = AddTransactionViewModel()
+        navigationController.pushViewController(vc, animated: true)
+    }
 
     func toBack() {
         self.navigationController.popViewController(animated: true)
