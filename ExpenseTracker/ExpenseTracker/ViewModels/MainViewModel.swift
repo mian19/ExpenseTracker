@@ -47,7 +47,6 @@ class MainViewModel {
     
     func setBTCCourse() {
         btcCourse.value = "1 BTC = \(oldBTC[0].inDollars ?? "") USD\nupdated: \(oldBTC[0].updatedDate?.dateForBTC() ?? "")"
-        print(btcCourse.value)
     }
     
     func getMyWallet() {

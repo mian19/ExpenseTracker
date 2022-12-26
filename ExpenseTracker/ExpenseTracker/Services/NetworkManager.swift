@@ -23,7 +23,6 @@ class NetworkManager {
             do {
                 let jsonAnswer = try JSONDecoder().decode(BitcoinExchange.self, from: data)
                 DispatchQueue.main.async {
-                    print(jsonAnswer)
                     completion(.success(jsonAnswer))
                 }
             } catch{

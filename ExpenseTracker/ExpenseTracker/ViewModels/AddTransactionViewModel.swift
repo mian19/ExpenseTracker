@@ -14,7 +14,6 @@ class AddTransactionViewModel {
     var isEnoughMoney = Dynamic(true)
     
     func processingTransaction(sum: Int) {
-        print(managedWallet[0].cash)
         if managedWallet[0].cash < sum {
             isEnoughMoney.value = false
             
@@ -47,7 +46,6 @@ class AddTransactionViewModel {
         }
 
         transaction.transactionDay = transDay
-        print(transactions.count)
         CoreDataManager.shared.saveContext()
     }
 }
